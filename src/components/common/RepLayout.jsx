@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,13 @@ export default function RepLayout({ children, buildingId, building, currentPage 
   };
 
   const isCurrentPage = (page) => currentPage === page;
+
+  useEffect(() => {
+    if (!buildingId || buildingId === 'null' || buildingId === 'undefined') {
+       // console.warn("Missing buildingId, redirecting to MyBuildings");
+       navigate('/MyBuildings', { replace: true });
+    }
+  }, [buildingId, navigate]);
 
   const toggleSection = (section) => {
     setExpandedSections(prev => ({
@@ -124,7 +131,8 @@ export default function RepLayout({ children, buildingId, building, currentPage 
                     key={idx}
                     onClick={() => {
                       if (!buildingId) {
-                        alert("건물 정보가 올바르지 않습니다.");
+                         navigate('/MyBuildings');
+                        // alert("건물 정보가 올바르지 않습니다.");
                         return;
                       }
                       navigate(createPageUrl(item.page) + `?buildingId=${buildingId}`);
@@ -167,7 +175,8 @@ export default function RepLayout({ children, buildingId, building, currentPage 
                           key={idx}
                           onClick={() => {
                       if (!buildingId || buildingId === 'null') {
-                        alert("건물 정보가 올바르지 않습니다.");
+                        navigate('/MyBuildings');
+                        // alert("건물 정보가 올바르지 않습니다.");
                         return;
                       }
                             navigate(createPageUrl(item.page) + `?buildingId=${buildingId}`);
