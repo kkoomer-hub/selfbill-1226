@@ -2,5 +2,6 @@
 
 
 export function createPageUrl(pageName: string) {
-    return '/' + pageName.toLowerCase().replace(/ /g, '-');
+    const [path, query] = pageName.split('?');
+    return '/' + path.toLowerCase().replace(/ /g, '-') + (query ? '?' + query : '');
 }
