@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Building2 } from "lucide-react";
 
 export default function Login() {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -61,11 +62,14 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold text-center">Self-Bill</CardTitle>
-          <CardDescription className="text-center">
+    <div className="flex items-center justify-center min-h-screen bg-slate-50 p-4">
+      <Card className="w-full max-w-md animate-in fade-in zoom-in duration-500 shadow-xl border-slate-100">
+        <CardHeader className="space-y-2 text-center">
+          <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-2">
+            <Building2 className="w-6 h-6 text-primary" />
+          </div>
+          <CardTitle className="text-2xl font-bold tracking-tight">Self-Bill</CardTitle>
+          <CardDescription>
             이메일로 로그인하거나 계정을 생성하세요
           </CardDescription>
         </CardHeader>
