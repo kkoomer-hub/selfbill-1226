@@ -1,0 +1,83 @@
+{
+  "name": "Unit",
+  "type": "object",
+  "properties": {
+    "building_id": {
+      "type": "string",
+      "description": "\uc18c\uc18d \uacf5\ub3d9\uc8fc\ud0dd ID"
+    },
+    "dong": {
+      "type": "string",
+      "description": "\ub3d9"
+    },
+    "ho": {
+      "type": "string",
+      "description": "\ud638\uc218"
+    },
+    "floor": {
+      "type": "string",
+      "description": "\uce35"
+    },
+    "unit_name": {
+      "type": "string",
+      "description": "\ub3d9/\ud638\uc218 \ud45c\uc2dc \ud14d\uc2a4\ud2b8"
+    },
+    "tenant_name": {
+      "type": "string",
+      "description": "\uc785\uc8fc\uc790 \uc774\ub984"
+    },
+    "tenant_phone": {
+      "type": "string",
+      "description": "\uc785\uc8fc\uc790 \ud734\ub300\ud3f0 (010-1234-5678 \ud615\uc2dd)"
+    },
+    "tenant_email": {
+      "type": "string",
+      "description": "\uc785\uc8fc\uc790 \uc774\uba54\uc77c"
+    },
+    "is_owner": {
+      "type": "boolean",
+      "description": "\uc790\uac00 \uc5ec\ubd80"
+    },
+    "residents_count": {
+      "type": "number",
+      "description": "\uac70\uc8fc \uc778\uc6d0"
+    },
+    "move_in_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\uc785\uc8fc\uc77c"
+    },
+    "car_count": {
+      "type": "number",
+      "description": "\ucc28\ub7c9 \ub300\uc218"
+    },
+    "car_numbers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\ucc28\ub7c9 \ubc88\ud638 \ubaa9\ub85d"
+    },
+    "share_ratio": {
+      "type": "number",
+      "description": "\uad00\ub9ac\ube44 \ubc30\ubd84 \ube44\uc728 (%)"
+    },
+    "needs_review": {
+      "type": "boolean",
+      "description": "\uc785\uc8fc\uc790 \uc218\uc815 \ud6c4 \ub300\ud45c\uc790 \ud655\uc778 \ud544\uc694 \uc5ec\ubd80"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "description": "\uc138\ub300 \uc0c1\ud0dc"
+    }
+  },
+  "required": [
+    "building_id",
+    "tenant_name",
+    "tenant_phone"
+  ]
+}

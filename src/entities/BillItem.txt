@@ -1,0 +1,69 @@
+{
+  "name": "BillItem",
+  "type": "object",
+  "properties": {
+    "bill_cycle_id": {
+      "type": "string",
+      "description": "\uccad\uad6c \uc6d4 ID"
+    },
+    "building_id": {
+      "type": "string",
+      "description": "\uacf5\ub3d9\uc8fc\ud0dd ID"
+    },
+    "template_id": {
+      "type": "string",
+      "description": "\ud15c\ud50c\ub9bf ID (\uc120\ud0dd)"
+    },
+    "name": {
+      "type": "string",
+      "description": "\ud56d\ubaa9\uba85"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "\uc77c\ubc18",
+        "\uc218\uc120",
+        "\uae30\ud0c0"
+      ],
+      "description": "\ud56d\ubaa9 \ubd84\ub958"
+    },
+    "amount_total": {
+      "type": "number",
+      "description": "\ucd1d \uae08\uc561"
+    },
+    "allocation_method": {
+      "type": "string",
+      "enum": [
+        "\uade0\ub4f1\ubd84\ubc30",
+        "\uba74\uc801\ube44\ub840",
+        "\uc138\ub300\ubcc4\ucc28\ub4f1",
+        "\uc9c1\uc811\uc785\ub825"
+      ],
+      "description": "\ubd84\ubc30 \ubc29\uc2dd"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "\uacf5\uc6a9",
+        "\uc138\ub300\ubcc4"
+      ],
+      "description": "\ubd80\uacfc \uc720\ud615"
+    },
+    "target_unit_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\ub300\uc0c1 \uc138\ub300 ID \ubaa9\ub85d (\uc138\ub300\ubcc4\uc778 \uacbd\uc6b0)"
+    },
+    "unit_amounts": {
+      "type": "string",
+      "description": "\uc138\ub300\ubcc4 \uae08\uc561 JSON (\ubcc0\ub3d9\ud56d\ubaa9\uc778 \uacbd\uc6b0)"
+    }
+  },
+  "required": [
+    "bill_cycle_id",
+    "building_id",
+    "name"
+  ]
+}

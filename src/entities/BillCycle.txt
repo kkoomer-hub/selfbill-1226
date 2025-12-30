@@ -1,0 +1,64 @@
+{
+  "name": "BillCycle",
+  "type": "object",
+  "properties": {
+    "building_id": {
+      "type": "string",
+      "description": "\uacf5\ub3d9\uc8fc\ud0dd ID"
+    },
+    "year": {
+      "type": "number",
+      "description": "\uc5f0\ub3c4"
+    },
+    "month": {
+      "type": "number",
+      "description": "\uc6d4 (1-12)"
+    },
+    "year_month": {
+      "type": "string",
+      "description": "\uc5f0\uc6d4 \ubb38\uc790\uc5f4 (\uc608: 2025-01)"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\ub0a9\uae30\uc77c"
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "\ubd80\uacfc \uae30\uac04 \uc2dc\uc791\uc77c"
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "\ubd80\uacfc \uae30\uac04 \uc885\ub8cc\uc77c"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "confirmed",
+        "sent"
+      ],
+      "description": "\uc0c1\ud0dc"
+    },
+    "is_locked": {
+      "type": "boolean",
+      "description": "\uc7a0\uae08 \uc5ec\ubd80 (\ubc1c\uc1a1 \ud6c4 \uc218\uc815 \ubd88\uac00)"
+    },
+    "first_sent_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\ucc98\uc74c \uccad\uad6c\uc11c \ubc1c\uc1a1\ub41c \uc2dc\uac01"
+    },
+    "total_amount": {
+      "type": "number",
+      "description": "\ucd1d \uccad\uad6c \uae08\uc561"
+    }
+  },
+  "required": [
+    "building_id",
+    "year",
+    "month"
+  ]
+}

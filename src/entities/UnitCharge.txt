@@ -1,0 +1,52 @@
+{
+  "name": "UnitCharge",
+  "type": "object",
+  "properties": {
+    "bill_cycle_id": {
+      "type": "string",
+      "description": "\uccad\uad6c \uc6d4 ID"
+    },
+    "building_id": {
+      "type": "string",
+      "description": "\uacf5\ub3d9\uc8fc\ud0dd ID"
+    },
+    "unit_id": {
+      "type": "string",
+      "description": "\uc138\ub300 ID"
+    },
+    "year_month": {
+      "type": "string",
+      "description": "\uc5f0\uc6d4 (\uc608: 2025-01)"
+    },
+    "amount_total": {
+      "type": "number",
+      "description": "\uccad\uad6c \ucd1d\uc561"
+    },
+    "breakdown_json": {
+      "type": "string",
+      "description": "\ud56d\ubaa9\ubcc4 \ub0b4\uc5ed JSON"
+    },
+    "late_fee_amount": {
+      "type": "number",
+      "description": "\uc5f0\uccb4\ub8cc"
+    },
+    "after_due_amount": {
+      "type": "number",
+      "description": "\ub0a9\uae30 \ud6c4 \uae08\uc561"
+    },
+    "is_sent": {
+      "type": "boolean",
+      "description": "\ubc1c\uc1a1 \uc5ec\ubd80"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\ubc1c\uc1a1 \uc2dc\uac01"
+    }
+  },
+  "required": [
+    "bill_cycle_id",
+    "building_id",
+    "unit_id"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "name": "NotificationLog",
+  "type": "object",
+  "properties": {
+    "building_id": {
+      "type": "string",
+      "description": "\uacf5\ub3d9\uc8fc\ud0dd ID"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "\uc218\uc2e0\uc790 User.id (\ube44\ud68c\uc6d0\uc774\uba74 null)"
+    },
+    "to_phone": {
+      "type": "string",
+      "description": "\uc218\uc2e0\uc790 \ud734\ub300\ud3f0 \ubc88\ud638 (010-1234-5678 \ud615\uc2dd)"
+    },
+    "channel": {
+      "type": "string",
+      "description": "\ucc44\ub110 (\uc608: MMS)"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "INVITATION",
+        "BILL_NOTICE",
+        "ROLE_CHANGE_REQUEST",
+        "\uae30\ud0c0"
+      ],
+      "description": "\uc774\ubca4\ud2b8 \uc720\ud615"
+    },
+    "event_ref_id": {
+      "type": "string",
+      "description": "\uad00\ub828 \uc5d4\ud2f0\ud2f0 ID (Invitation, UnitCharge, RoleChangeRequest \ub4f1)"
+    },
+    "title": {
+      "type": "string",
+      "description": "\ubb38\uc790 \uc81c\ubaa9 \ub610\ub294 \uc694\uc57d"
+    },
+    "body": {
+      "type": "string",
+      "description": "\ubb38\uc790 \ubcf8\ubb38 \ub0b4\uc6a9"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "\ubc1c\uc1a1\ub300\uae30",
+        "\ubc1c\uc1a1\uc131\uacf5",
+        "\ubc1c\uc1a1\uc2e4\ud328"
+      ],
+      "description": "\ubc1c\uc1a1 \uc0c1\ud0dc"
+    },
+    "provider_message_id": {
+      "type": "string",
+      "description": "\uc678\ubd80 \ubb38\uc790 \ubc1c\uc1a1 \uc11c\ube44\uc2a4\uc758 \uba54\uc2dc\uc9c0 ID"
+    },
+    "error_message": {
+      "type": "string",
+      "description": "\uc2e4\ud328 \uc2dc \uc5d0\ub7ec \uc124\uba85"
+    },
+    "sent_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\ubc1c\uc1a1 \uc2dc\uac01"
+    }
+  },
+  "required": [
+    "building_id",
+    "to_phone",
+    "event_type"
+  ]
+}

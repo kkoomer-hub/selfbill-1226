@@ -1,0 +1,53 @@
+{
+  "name": "PaymentStatus",
+  "type": "object",
+  "properties": {
+    "unit_charge_id": {
+      "type": "string",
+      "description": "\uc138\ub300\ubcc4 \uccad\uad6c ID"
+    },
+    "building_id": {
+      "type": "string",
+      "description": "\uacf5\ub3d9\uc8fc\ud0dd ID"
+    },
+    "unit_id": {
+      "type": "string",
+      "description": "\uc138\ub300 ID"
+    },
+    "year_month": {
+      "type": "string",
+      "description": "\uc5f0\uc6d4"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "\ubbf8\ub0a9",
+        "\ubd80\ubd84\ub0a9",
+        "\uc644\ub0a9"
+      ],
+      "description": "\ub0a9\ubd80 \uc0c1\ud0dc"
+    },
+    "charged_amount": {
+      "type": "number",
+      "description": "\uccad\uad6c \uae08\uc561"
+    },
+    "paid_amount": {
+      "type": "number",
+      "description": "\ub0a9\ubd80 \uae08\uc561"
+    },
+    "paid_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\ub0a9\ubd80 \uc2dc\uac01"
+    },
+    "memo": {
+      "type": "string",
+      "description": "\uba54\ubaa8"
+    }
+  },
+  "required": [
+    "building_id",
+    "unit_id",
+    "year_month"
+  ]
+}

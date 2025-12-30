@@ -1,0 +1,43 @@
+{
+  "name": "RoleChangeRequest",
+  "type": "object",
+  "properties": {
+    "building_id": {
+      "type": "string",
+      "description": "\uacf5\ub3d9\uc8fc\ud0dd ID"
+    },
+    "from_user_id": {
+      "type": "string",
+      "description": "\uae30\uc874 \ub300\ud45c\uc790 User.id"
+    },
+    "to_user_id": {
+      "type": "string",
+      "description": "\uc608\ube44 \ub300\ud45c\uc790 User.id"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "\uc694\uccad",
+        "\uc608\ube44\ub300\ud45c \uc218\ub77d",
+        "\uac70\uc808",
+        "\ucde8\uc18c"
+      ],
+      "description": "\uc694\uccad \uc0c1\ud0dc"
+    },
+    "requested_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\uc694\uccad \uc2dc\uac01"
+    },
+    "responded_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\uc751\ub2f5 \uc2dc\uac01"
+    }
+  },
+  "required": [
+    "building_id",
+    "from_user_id",
+    "to_user_id"
+  ]
+}

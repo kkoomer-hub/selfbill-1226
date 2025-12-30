@@ -1,0 +1,47 @@
+{
+  "name": "Invitation",
+  "type": "object",
+  "properties": {
+    "building_id": {
+      "type": "string",
+      "description": "\uacf5\ub3d9\uc8fc\ud0dd ID"
+    },
+    "unit_id": {
+      "type": "string",
+      "description": "\uc138\ub300 ID"
+    },
+    "tenant_name": {
+      "type": "string",
+      "description": "\uc785\uc8fc\uc790 \uc774\ub984"
+    },
+    "tenant_phone": {
+      "type": "string",
+      "description": "\uc785\uc8fc\uc790 \ud734\ub300\ud3f0 (010-1234-5678 \ud615\uc2dd)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "\ucd08\ub300 \uc804",
+        "\ucd08\ub300 \ubc1c\uc1a1",
+        "\uac00\uc785 \uc644\ub8cc"
+      ],
+      "description": "\ucd08\ub300 \uc0c1\ud0dc"
+    },
+    "invited_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\ucd08\ub300 \ubc1c\uc1a1 \uc2dc\uac01"
+    },
+    "accepted_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\uac00\uc785 \uc644\ub8cc \uc2dc\uac01"
+    }
+  },
+  "required": [
+    "building_id",
+    "unit_id",
+    "tenant_name",
+    "tenant_phone"
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "name": "Building",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "\uacf5\ub3d9\uc8fc\ud0dd \uc774\ub984"
+    },
+    "address": {
+      "type": "string",
+      "description": "\uc8fc\uc18c"
+    },
+    "address_detail": {
+      "type": "string",
+      "description": "\uc0c1\uc138 \uc8fc\uc18c"
+    },
+    "planned_units_count": {
+      "type": "number",
+      "description": "\uacc4\ud68d\ub41c \uc804\uccb4 \uc138\ub300 \uc218 (\uac74\ubb3c\uc815\ubcf4 \uc785\ub825 \uc2dc)"
+    },
+    "building_units_count": {
+      "type": "number",
+      "description": "\uc2e4\uc81c \ub4f1\ub85d\ub41c \ud65c\uc131 \uc138\ub300 \uc218"
+    },
+    "billing_method": {
+      "type": "string",
+      "enum": [
+        "\uade0\ub4f1 \ubc30\ubd84",
+        "\uc9c0\ubd84\uc728\uc5d0 \uc758\uac70 \ubd80\uacfc"
+      ],
+      "description": "\uad00\ub9ac\ube44 \ubd80\uacfc \ubc29\uc2dd"
+    },
+    "billing_period_type": {
+      "type": "string",
+      "description": "\ubd80\uacfc \uae30\uac04 \uc720\ud615"
+    },
+    "billing_period_start": {
+      "type": "number",
+      "description": "\ubd80\uacfc \uae30\uac04 \uc2dc\uc791\uc77c"
+    },
+    "billing_period_end": {
+      "type": "number",
+      "description": "\ubd80\uacfc \uae30\uac04 \uc885\ub8cc\uc77c"
+    },
+    "billing_due_day": {
+      "type": "number",
+      "description": "\ub0a9\uc785 \uae30\uc77c (\ub9e4\uc6d4 N\uc77c)"
+    },
+    "late_fee_rate_percent": {
+      "type": "number",
+      "description": "\uc5f0\uccb4\ub8cc\uc728 (%)"
+    },
+    "bank_name": {
+      "type": "string",
+      "description": "\uc785\uae08 \uacc4\uc88c \uc740\ud589\uba85"
+    },
+    "bank_account": {
+      "type": "string",
+      "description": "\uc785\uae08 \uacc4\uc88c\ubc88\ud638"
+    },
+    "bank_holder": {
+      "type": "string",
+      "description": "\uc785\uae08 \uacc4\uc88c \uc608\uae08\uc8fc"
+    },
+    "billing_monthly_fee_krw": {
+      "type": "number",
+      "description": "\uc6d4 \uc140\ud504\ube4c \uc774\uc6a9\ub8cc (\uc6d0)"
+    },
+    "selfbill_plan_confirmed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "\uc140\ud504\ube4c \uc694\uae08\uc81c \ucc98\uc74c \ud655\uc778 \uc77c\uc790"
+    },
+    "selfbill_auto_bank_name": {
+      "type": "string",
+      "description": "\uc140\ud504\ube4c \uc790\ub3d9\uc774\uccb4 \uc740\ud589\uba85"
+    },
+    "selfbill_auto_bank_account": {
+      "type": "string",
+      "description": "\uc140\ud504\ube4c \uc790\ub3d9\uc774\uccb4 \uacc4\uc88c\ubc88\ud638"
+    },
+    "selfbill_auto_bank_holder": {
+      "type": "string",
+      "description": "\uc140\ud504\ube4c \uc790\ub3d9\uc774\uccb4 \uc608\uae08\uc8fc"
+    },
+    "selfbill_auto_start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\uc140\ud504\ube4c \uc790\ub3d9\uc774\uccb4 \uc2dc\uc791\uc77c"
+    },
+    "setup_step": {
+      "type": "number",
+      "description": "\uac74\ubb3c \ub4f1\ub85d \uc704\uc800\ub4dc \uc9c4\ud589 \ub2e8\uacc4 (1-5)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "active",
+        "inactive"
+      ],
+      "description": "\uac74\ubb3c \uc0c1\ud0dc (draft=\ubbf8\uc644\ub8cc, active=\ud65c\uc131)"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

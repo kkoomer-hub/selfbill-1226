@@ -1,0 +1,61 @@
+{
+  "name": "BillItemTemplate",
+  "type": "object",
+  "properties": {
+    "building_id": {
+      "type": "string",
+      "description": "\uacf5\ub3d9\uc8fc\ud0dd ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "\ud56d\ubaa9\uba85"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "\uc77c\ubc18",
+        "\uc218\uc120",
+        "\uae30\ud0c0"
+      ],
+      "description": "\ud56d\ubaa9 \ubd84\ub958"
+    },
+    "amount_type": {
+      "type": "string",
+      "enum": [
+        "\uace0\uc815",
+        "\ubcc0\ub3d9"
+      ],
+      "description": "\uae08\uc561 \uc720\ud615 (\uace0\uc815=\uace0\uc815\uad00\ub9ac\ube44, \ubcc0\ub3d9=\ubcc0\ub3d9\uad00\ub9ac\ube44)"
+    },
+    "default_amount": {
+      "type": "number",
+      "description": "\uae30\ubcf8 \uae08\uc561"
+    },
+    "default_months": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": "\uae30\ubcf8 \uc801\uc6a9 \uc6d4 (1~12)"
+    },
+    "default_type": {
+      "type": "string",
+      "enum": [
+        "\uacf5\uc6a9",
+        "\uc138\ub300\ubcc4"
+      ],
+      "description": "\uae30\ubcf8 \ubd80\uacfc \uc720\ud615"
+    },
+    "default_target_unit_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\uc138\ub300\ubcc4\uc778 \uacbd\uc6b0 \ub300\uc0c1 \uc138\ub300 ID \ubaa9\ub85d"
+    }
+  },
+  "required": [
+    "building_id",
+    "name"
+  ]
+}
