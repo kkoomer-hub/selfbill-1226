@@ -120,13 +120,22 @@ function _getCurrentPage(url) {
     if (url.endsWith('/')) {
         url = url.slice(0, -1);
     }
+    
+    // Explicitly handle root path or empty path as Login
+    if (url === '' || url === 'https://' + window.location.host || url === 'http://' + window.location.host) {
+        return 'Login';
+    }
+
     let urlLastPart = url.split('/').pop();
+    
+    if (!urlLastPart) return 'Login';
+
     if (urlLastPart.includes('?')) {
         urlLastPart = urlLastPart.split('?')[0];
     }
 
     const pageName = Object.keys(PAGES).find(page => page.toLowerCase() === urlLastPart.toLowerCase());
-    return pageName || Object.keys(PAGES)[0];
+    return pageName || 'Login';
 }
 
 // Create a wrapper component that uses useLocation inside the Router context
