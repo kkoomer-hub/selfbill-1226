@@ -140,7 +140,7 @@ function PagesContent() {
     React.useEffect(() => {
         const { data: { subscription } } = base44.supabase.auth.onAuthStateChange(async (event, session) => {
             // Check for OAuth callback params in URL to distinguish fresh logins from cached sessions
-            if (event === 'SIGNED_IN' || (event === 'INITIAL_SESSION' && session)) {
+            if (event === 'SIGNED_IN') {
                 if (location.pathname === '/' || location.pathname === '/Login') {
                    navigate('/Onboarding');
                 }
