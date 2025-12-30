@@ -12,6 +12,20 @@ export default function Layout({ children, currentPageName }) {
   useEffect(() => {
     let mounted = true;
 
+    // 0. Immediate check: If not verified and not on a public page, redirect to Login instantly
+    // This prevents "flashing" or timing out on private pages when Supabase is slow.
+    const publicPages = ['Login', 'AcceptInvite'];
+    const currentPath = window.location.pathname;
+    const isPublic = publicPages.some(page => currentPath.includes(page)) || currentPath === '/';
+    const isVerified = sessionStorage.getItem('sb-session-verified') === 'true';
+
+    if (!isVerified && !isPublic) {
+        console.log("Immediate redirect: Session not verified in this tab");
+        setIsAuthChecking(false);
+        navigate('/Login', { replace: true });
+        return;
+    }
+
     // Helper to handle auth state
     const handleAuth = async (user) => {
         if (!mounted) return;
