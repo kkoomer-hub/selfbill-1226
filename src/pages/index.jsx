@@ -122,7 +122,8 @@ function _getCurrentPage(url) {
     }
     
     // Explicitly handle root path or empty path as Login
-    if (url === '' || url === 'https://' + window.location.host || url === 'http://' + window.location.host) {
+    // Even if Supabase session exists, we want them to see Login first.
+    if (url === '' || url === 'https://' + window.location.host || url === 'http://' + window.location.host || url === '/') {
         return 'Login';
     }
 

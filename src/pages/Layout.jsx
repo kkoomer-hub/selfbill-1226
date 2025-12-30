@@ -108,10 +108,21 @@ export default function Layout({ children, currentPageName }) {
     };
   }, [navigate]); // Removed currentPageName to prevent re-subscription loops
 
-  // Show nothing or loading while checking auth to prevent redirect loops/flashes
-  if (isAuthChecking) {
-      return <div className="min-h-screen bg-[#F8F8F4]" />; // Empty background matches theme
+  // --- NUCLEAR FIX: Strict Render Gate ---
+  // This logic runs every render. If not verified and trying to access a private page,
+  // we return NULL immediately to ensure NOTHING is shown while the redirect happens.
+  const isVerifiedInThisTab = sessionStorage.getItem('sb-session-verified') === 'true';
+  const publicPages = ['Login', 'AcceptInvite'];
+  const currentPath = window.location.pathname;
+  const isPublicPage = publicPages.some(page => currentPath.toLowerCase().includes(page.toLowerCase())) || currentPath === '/';
+
+  // If we are on a private page and haven't verified the session in THIS tab,
+  // we BLOCK all rendering. This prevents accidental data leaks or "flashes".
+  if (!isVerifiedInThisTab && !isPublicPage) {
+      // Still show the background to look clean, but no children.
+      return <div className="min-h-screen bg-[#F8F8F4]" />;
   }
+  // ----------------------------------------
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
