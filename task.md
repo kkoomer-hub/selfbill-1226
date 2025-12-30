@@ -1,10 +1,32 @@
-# Tasks
+# 작업 목록
 
-- [x] Analyze entities and generate SQL schema <!-- id: 0 -->
-- [x] Implement Supabase Client Adapter <!-- id: 1 -->
-  - [x] Update `src/api/base44Client.js` with real Supabase implementation <!-- id: 2 -->
-- [/] Verify Migration <!-- id: 3 -->
-  - [/] Test Building Registration Flow <!-- id: 4 -->
-  - [ ] Test Invite Flow <!-- id: 5 -->
-- [x] Enforce Strict Login on Landing <!-- id: 6 -->
-- [x] Enforce Explicit Login Prompt <!-- id: 7 -->
+- [x] 카카오 로그인 구현
+- [x] 배포 (Vercel)
+- [x] 랜딩 페이지 변경
+- [x] 내비게이션 및 URL 오류 수정
+- [x] 환경 설정 및 자동화
+- [x] 로그인 페이지 강제 표시 수정
+
+# 버그 수정 완료
+
+- [x] 내비게이션 오류 수정
+- [x] RepDashboard 권한 오류 수정
+- [x] 세대 저장 버튼 오류 수정
+- [x] 내비게이션 메뉴 인증 오류 수정
+- [x] 월별 관리비 입력 페이지 수정
+- [x] UUID 오류 수정
+
+# 인프라 및 환경 설정
+
+- [x] Git 저장소 연결 및 초기화
+- [x] Vercel 배포 환경 설정 <!-- id: 18 -->
+  - [x] `VITE_SUPABASE_URL` 환경 변수 등록
+  - [x] `VITE_SUPABASE_ANON_KEY` 환경 변수 등록
+  - [x] 재배포 트리거
+
+# 디자인 및 사용성 개선
+
+- [x] UI 디자인 고도화
+  - [x] 컬러 테마 변경
+  - [x] 폰트 변경
+  - [x] 로그인 페이지 애니메이션 추가
