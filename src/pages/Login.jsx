@@ -16,9 +16,12 @@ export default function Login() {
     const handleGoogleLogin = async () => {
     try {
       setIsLoading(true);
+      // Mark this session as verified so index.jsx/Layout.jsx will let the user in
+      sessionStorage.setItem('sb-session-verified', 'true');
       await base44.auth.signIn();
     } catch (error) {
       console.error('Google Login failed:', error);
+      sessionStorage.removeItem('sb-session-verified');
       alert('로그인 실패: ' + error.message);
       setIsLoading(false);
     }
@@ -27,9 +30,12 @@ export default function Login() {
   const handleKakaoLogin = async () => {
     try {
         setIsLoading(true);
+        // Mark this session as verified
+        sessionStorage.setItem('sb-session-verified', 'true');
         await base44.auth.signInWithKakao();
     } catch (error) {
         console.error('Kakao Login failed:', error);
+        sessionStorage.removeItem('sb-session-verified');
         alert('카카오 로그인 실패: ' + error.message);
         setIsLoading(false);
     }
@@ -45,6 +51,8 @@ export default function Login() {
     try {
         setIsLoading(true);
         if (activeTab === "login") {
+            // Set verification flag BEFORE auth so the resulting SIGNED_IN event works
+            sessionStorage.setItem('sb-session-verified', 'true');
             await base44.auth.signInWithAuth(email, password);
         } else {
             const { user } = await base44.auth.signUp(email, password);

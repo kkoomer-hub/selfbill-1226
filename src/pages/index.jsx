@@ -149,11 +149,15 @@ function PagesContent() {
 
     React.useEffect(() => {
         const { data: { subscription } } = base44.supabase.auth.onAuthStateChange(async (event, session) => {
-            // Check for OAuth callback params in URL to distinguish fresh logins from cached sessions
             if (event === 'SIGNED_IN') {
-                sessionStorage.setItem('sb-session-verified', 'true');
-                if (location.pathname === '/' || location.pathname === '/Login') {
+                // Check if this session was explicitly verified in this tab (e.g. via Login button click)
+                const isVerifiedInThisTab = sessionStorage.getItem('sb-session-verified') === 'true';
+                
+                if (isVerifiedInThisTab && (location.pathname === '/' || location.pathname === '/Login')) {
+                   console.log("Verified session detected, navigating to Onboarding");
                    navigate('/Onboarding');
+                } else {
+                   console.log("Implicit session detected. Remaining on Login page as requested.");
                 }
             } else if (event === 'SIGNED_OUT') {
                 sessionStorage.removeItem('sb-session-verified');
