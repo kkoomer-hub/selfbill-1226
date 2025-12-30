@@ -135,37 +135,11 @@ function PagesContent() {
     const navigate = useNavigate();
     const currentPage = _getCurrentPage(location.pathname);
 
-    const isFirstLoad = React.useRef(true);
+
 
     React.useEffect(() => {
         const { data: { subscription } } = base44.supabase.auth.onAuthStateChange(async (event, session) => {
             // Check for OAuth callback params in URL to distinguish fresh logins from cached sessions
-            const isAuthCallback = window.location.hash.includes('access_token') || 
-                                   window.location.hash.includes('type=recovery') ||
-                                   window.location.search.includes('code=');
-
-            if (isFirstLoad.current) {
-                 isFirstLoad.current = false;
-                 // On first load, if we have a session but it's not an OAuth callback,
-                 // and we are on the login page, we want to force logout to show the login screen.
-                 if (session && !isAuthCallback) {
-                     if (location.pathname === '/' || location.pathname === '/Login') {
-                        // console.log("Force signing out on first load");
-                        await base44.supabase.auth.signOut();
-                        return;
-                     }
-                 }
-            }
-
-            if (event === 'INITIAL_SESSION') {
-                if (session && !isAuthCallback) {
-                     if (location.pathname === '/' || location.pathname === '/Login') {
-                        await base44.supabase.auth.signOut();
-                        return; 
-                     }
-                }
-            }
-
             if (event === 'SIGNED_IN' || (event === 'INITIAL_SESSION' && session)) {
                 if (location.pathname === '/' || location.pathname === '/Login') {
                    navigate('/Onboarding');

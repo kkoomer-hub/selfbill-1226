@@ -7,37 +7,53 @@ export default function Layout({ children, currentPageName }) {
 
   const [userInfo, setUserInfo] = React.useState(null);
 
-  useEffect(() => {
-    // Basic auth check
-    const checkAuth = async () => {
-      try {
-        const user = await base44.auth.me();
-        if (!user) {
-          throw new Error('No user');
-        }
-        
-        // Check actual DB role to be sure
-        const memberships = await base44.entities.BuildingMember.filter({
-          user_email: user.email,
-          role: 'representative'
-        });
-        
-        // If user manages ANY building, they are a Representative
-        const confirmedRole = memberships.length > 0 ? 'representative' : (user.role || 'representative');
-        
-        setUserInfo({ ...user, role: confirmedRole });
+  const [isAuthChecking, setIsAuthChecking] = React.useState(true);
 
-      } catch (error) {
-        // If not logged in and not on public pages (like Login/Register), redirect
+  useEffect(() => {
+    const { data: { subscription } } = base44.supabase.auth.onAuthStateChange(async (event, session) => {
+      // console.log(`Layout Auth Event: ${event}`, session?.user?.email);
+      
+      if (session?.user) {
+        // User is logged in, check role
+        const user = session.user;
+        try {
+             // Check actual DB role to be sure
+            const memberships = await base44.entities.BuildingMember.filter({
+              user_email: user.email,
+              role: 'representative'
+            });
+            
+            // If user manages ANY building, they are a Representative
+            const confirmedRole = memberships.length > 0 ? 'representative' : (user.user_metadata?.role || 'representative');
+            
+            setUserInfo({ ...user, role: confirmedRole });
+        } catch (e) {
+            // Fallback if DB check fails
+            setUserInfo({ ...user, role: user.user_metadata?.role || 'representative' });
+        }
+        setIsAuthChecking(false);
+      } else {
+        // User is not logged in
+        setUserInfo(null);
+        setIsAuthChecking(false);
+        
+        // If not logged in and not on public pages, redirect
         const publicPages = ['Login', 'AcceptInvite']; 
         if (!publicPages.includes(currentPageName)) {
            navigate('/Login');
         }
       }
+    });
+
+    return () => {
+      subscription.unsubscribe();
     };
-    
-    checkAuth();
   }, [navigate, currentPageName]);
+
+  // Show nothing or loading while checking auth to prevent redirect loops/flashes
+  if (isAuthChecking) {
+      return <div className="min-h-screen bg-[#F8F8F4]" />; // Empty background matches theme
+  }
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
