@@ -17,6 +17,19 @@ export default function Layout({ children, currentPageName }) {
         if (!mounted) return;
         
         if (user) {
+            // Check if this session has been verified (visited login page in this tab)
+            const isVerified = sessionStorage.getItem('sb-session-verified') === 'true';
+            const publicPages = ['Login', 'AcceptInvite'];
+            const currentPath = window.location.pathname;
+            const isPublic = publicPages.some(page => currentPath.includes(page)) || currentPath === '/';
+
+            if (!isVerified && !isPublic) {
+                console.log("Session not verified in this tab, redirecting to Login");
+                setIsAuthChecking(false);
+                navigate('/Login');
+                return;
+            }
+
             try {
                 // Check actual DB role to be sure
                 const memberships = await base44.entities.BuildingMember.filter({

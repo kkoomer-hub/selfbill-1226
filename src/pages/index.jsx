@@ -150,10 +150,12 @@ function PagesContent() {
         const { data: { subscription } } = base44.supabase.auth.onAuthStateChange(async (event, session) => {
             // Check for OAuth callback params in URL to distinguish fresh logins from cached sessions
             if (event === 'SIGNED_IN') {
+                sessionStorage.setItem('sb-session-verified', 'true');
                 if (location.pathname === '/' || location.pathname === '/Login') {
                    navigate('/Onboarding');
                 }
             } else if (event === 'SIGNED_OUT') {
+                sessionStorage.removeItem('sb-session-verified');
                 navigate('/Login');
             }
         });
