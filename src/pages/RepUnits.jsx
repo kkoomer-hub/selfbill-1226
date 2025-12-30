@@ -160,6 +160,7 @@ export default function RepUnits() {
       const unit_name = [formData.dong && `${formData.dong}동`, formData.ho && `${formData.ho}호`].filter(Boolean).join(" ");
       
       const saveData = {
+        name: unit_name || formData.ho, // Mandatory field in DB
         dong: formData.dong,
         ho: formData.ho,
         floor: formData.floor,
