@@ -10,45 +10,76 @@ export default function Layout({ children, currentPageName }) {
   const [isAuthChecking, setIsAuthChecking] = React.useState(true);
 
   useEffect(() => {
-    const { data: { subscription } } = base44.supabase.auth.onAuthStateChange(async (event, session) => {
-      // console.log(`Layout Auth Event: ${event}`, session?.user?.email);
-      
-      if (session?.user) {
-        // User is logged in, check role
-        const user = session.user;
-        try {
-             // Check actual DB role to be sure
-            const memberships = await base44.entities.BuildingMember.filter({
-              user_email: user.email,
-              role: 'representative'
-            });
-            
-            // If user manages ANY building, they are a Representative
-            const confirmedRole = memberships.length > 0 ? 'representative' : (user.user_metadata?.role || 'representative');
-            
-            setUserInfo({ ...user, role: confirmedRole });
-        } catch (e) {
-            // Fallback if DB check fails
-            setUserInfo({ ...user, role: user.user_metadata?.role || 'representative' });
-        }
-        setIsAuthChecking(false);
-      } else {
-        // User is not logged in
-        setUserInfo(null);
-        setIsAuthChecking(false);
+    let mounted = true;
+
+    // Helper to handle auth state
+    const handleAuth = async (user) => {
+        if (!mounted) return;
         
-        // If not logged in and not on public pages, redirect
-        const publicPages = ['Login', 'AcceptInvite']; 
-        if (!publicPages.includes(currentPageName)) {
-           navigate('/Login');
+        if (user) {
+            try {
+                // Check actual DB role to be sure
+                const memberships = await base44.entities.BuildingMember.filter({
+                  user_email: user.email,
+                  role: 'representative'
+                });
+                
+                if (!mounted) return;
+
+                // If user manages ANY building, they are a Representative
+                const confirmedRole = memberships.length > 0 ? 'representative' : (user.user_metadata?.role || 'representative');
+                
+                setUserInfo({ ...user, role: confirmedRole });
+            } catch (e) {
+                if (!mounted) return;
+                // Fallback if DB check fails
+                setUserInfo({ ...user, role: user.user_metadata?.role || 'representative' });
+            }
+        } else {
+            setUserInfo(null);
+            // If not logged in and not on public pages, redirect
+            const publicPages = ['Login', 'AcceptInvite']; 
+            // We use window.location.pathname to avoid dependency on prop
+            const currentPath = window.location.pathname;
+            const isPublic = publicPages.some(page => currentPath.includes(page)) || currentPath === '/';
+            
+            if (!isPublic) {
+               // Double check if we are really on a private page before collecting
+               navigate('/Login');
+            }
         }
-      }
+        setIsAuthChecking(false);
+    };
+
+    // 1. Subscribe to changes
+    const { data: { subscription } } = base44.supabase.auth.onAuthStateChange((event, session) => {
+      // console.log(`Layout Auth Event: ${event}`);
+      handleAuth(session?.user);
     });
 
+    // 2. Initial check (in case event is missed or delayed)
+    base44.supabase.auth.getSession().then(({ data: { session } }) => {
+        if (session?.user && isAuthChecking) {
+             handleAuth(session.user);
+        } else if (!session && isAuthChecking) {
+             handleAuth(null);
+        }
+    });
+
+    // 3. Safety timeout - if nothing happens in 3 seconds, stop loading
+    const timer = setTimeout(() => {
+        if (mounted && isAuthChecking) {
+             console.warn("Auth check timed out, forcing render");
+             setIsAuthChecking(false);
+        }
+    }, 3000);
+
     return () => {
+      mounted = false;
       subscription.unsubscribe();
+      clearTimeout(timer);
     };
-  }, [navigate, currentPageName]);
+  }, [navigate]); // Removed currentPageName to prevent re-subscription loops
 
   // Show nothing or loading while checking auth to prevent redirect loops/flashes
   if (isAuthChecking) {
