@@ -142,20 +142,21 @@ export default function RepUnits() {
     }
 
     // Validate phone format
-    if (!formData.phone2 || !formData.phone3 || 
+    if (!formData.phone1 || !formData.phone2 || !formData.phone3 || 
         formData.phone1.length < 3 || 
         formData.phone2.length < 3 || formData.phone2.length > 4 || 
         formData.phone3.length !== 4) {
       alert("올바른 전화번호 형식으로 입력해주세요. (예: 010-1234-5678)");
       return;
     }
-    
-    if (!await validateShareRatio()) {
-      return;
-    }
-    
+
     setIsSaving(true);
     try {
+      if (!await validateShareRatio()) {
+        setIsSaving(false);
+        return;
+      }
+
       const tenant_phone = `${formData.phone1}-${formData.phone2}-${formData.phone3}`;
       const unit_name = [formData.dong && `${formData.dong}동`, formData.ho && `${formData.ho}호`].filter(Boolean).join(" ");
       
@@ -172,20 +173,25 @@ export default function RepUnits() {
         status: "active"
       };
 
+      console.log("Saving unit with data:", saveData);
+
       if (editingUnit) {
         await base44.entities.Unit.update(editingUnit.id, saveData);
       } else {
         await base44.entities.Unit.create(saveData);
       }
       
+      console.log("Unit saved successfully, updating counts...");
       await updateBuildingUnitsCount();
       await loadUnits();
       setShowDialog(false);
+      console.log("Dialog closed and units reloaded.");
     } catch (err) {
-      console.error("Error saving unit:", err);
-      alert("저장 중 오류가 발생했습니다: " + err.message);
+      console.error("Error in handleSave:", err);
+      alert("저장 중 오류가 발생했습니다: " + (err.message || "알 수 없는 오류"));
+    } finally {
+      setIsSaving(false);
     }
-    setIsSaving(false);
   };
 
   const handleDelete = async (unitId) => {
